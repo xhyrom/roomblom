@@ -1,0 +1,8 @@
+Mumblum is a simple, modern discord bot in JDA
+
+If you want to setup, you can follow the steps below:
+- Clone the repository
+- Rename file called ".env.template" in `src/resources` to `.env`
+- Open project in your IDE (IntelliJ IDEA recommended)
+- Build the project
+- Run the project
