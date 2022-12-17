@@ -1,11 +1,13 @@
 package me.xhyrom.mumblum
 
 import io.github.cdimascio.dotenv.Dotenv
+import me.xhyrom.mumblum.listeners.GuildListener
 import me.xhyrom.mumblum.listeners.InteractionListener
 import me.xhyrom.mumblum.managers.CommandManager
 import me.xhyrom.mumblum.managers.LavalinkManager
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.JDABuilder
+import net.dv8tion.jda.api.requests.GatewayIntent
 
 class Bot {
     companion object {
@@ -36,7 +38,9 @@ class Bot {
         lavaLinkManager = LavalinkManager()
 
         val builder = JDABuilder.createDefault(dotenv.get("BOT_TOKEN"))
+            .enableIntents(GatewayIntent.GUILD_VOICE_STATES)
             .addEventListeners(InteractionListener())
+            .addEventListeners(GuildListener())
             .setVoiceDispatchInterceptor(lavaLinkManager!!.getLavaLink().voiceInterceptor)
 
         api = builder.build()

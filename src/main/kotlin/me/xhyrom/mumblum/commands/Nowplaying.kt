@@ -8,7 +8,8 @@ import java.awt.Color
 
 class Nowplaying : Command("nowplaying", "Show the current song") {
     override fun execute(event: SlashCommandInteractionEvent) {
-        val guildMusicManager = Bot.getInstanceUnsafe().getLavaLinkManager().getGuildMusicManager(event.guild!!)
+        val guild = event.guild ?: return event.reply("You must be in a guild to use this command").setEphemeral(true).queue()
+        val guildMusicManager = Bot.getInstanceUnsafe().getLavaLinkManager().getGuildMusicManager(guild)
         val track = guildMusicManager.getPlayer().playingTrack
             ?: return event.reply("No song is currently playing").queue()
 
