@@ -11,17 +11,17 @@ const token = await fetch(`http://panel.jopgamer.xyz/api/client/servers/1e910635
     headers: {
         Authorization: `Bearer ${process.env.PANEL_API_TOKEN}`
     }
-}).catch(e => console.log(e))
+}).catch(e => console.log(e));
 
-console.log(token.status)
+console.log(token.status);
 
-const response = await fetch(`${await token.json().data.attributes.url}&directory=/`, {
+const response = await fetch(`${await token.json().attributes.url}&directory=/`, {
     method: 'POST',
     headers: {
         ...form.getHeaders(),
         Authorization: `Bearer ${process.env.PANEL_API_TOKEN}`
     },
     body: form.getBuffer()
-}).catch(e => console.log(e))
+}).catch(e => console.log(e));
 
-console.log(response.status)
+console.log(response.status);
