@@ -1,0 +1,69 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
+
+name: Java CI with Gradle
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@7b3886699e7f5156c2650e6861b32ea2356df4d6
+        with:
+          arguments: build
+
+      - name: Upload build libs
+        uses: actions/upload-artifact@v3
+        with:
+          name: build-libs
+          path: build/libs/
+
+      - name: Upload build libs to ptero
+        if: ${{ github.event.inputs.release }}
+        run:
+          cd scripts && npm ci && cd ..
+          node scripts/upload.mjs
+        env:
+          PANEL_API_TOKEN: ${{ secrets.PANEL_API_TOKEN }}
+
+      - uses: dev-drprasad/delete-tag-and-release@085c6969f18bad0de1b9f3fe6692a3cd01f64fe5
+        with:
+          delete_release: true
+          tag_name: dev
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create the release
+        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: dev
+          name: Dev Build ${{ steps.vars.outputs.sha_short }}
+          draft: false
+          prerelease: false
+          files: |
+            build/libs/mumblum-*.jar
