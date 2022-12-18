@@ -2,10 +2,7 @@ package me.xhyrom.mumblum.managers
 
 import me.xhyrom.mumblum.Bot
 import me.xhyrom.mumblum.api.structs.Command
-import me.xhyrom.mumblum.commands.Nowplaying
-import me.xhyrom.mumblum.commands.Ping
-import me.xhyrom.mumblum.commands.Play
-import me.xhyrom.mumblum.commands.Stop
+import me.xhyrom.mumblum.commands.*
 import net.dv8tion.jda.api.interactions.commands.build.Commands
 
 class CommandManager {
@@ -16,6 +13,7 @@ class CommandManager {
         commands.add(Play())
         commands.add(Nowplaying())
         commands.add(Stop())
+        commands.add(Queue())
 
         registerCommands()
     }

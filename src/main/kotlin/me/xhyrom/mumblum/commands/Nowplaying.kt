@@ -39,10 +39,8 @@ class Nowplaying : Command("nowplaying", "Show the current song") {
             String.format("%02d:%02d:%02d:%02d", days, hours, minutes, seconds)
         } else if (hours > 0) {
             String.format("%02d:%02d:%02d", hours, minutes, seconds)
-        } else if (minutes > 0) {
-            String.format("%02d:%02d", minutes, seconds)
         } else {
-            String.format("%02d", seconds)
+            String.format("%02d:%02d", minutes, seconds)
         }
     }
 }
