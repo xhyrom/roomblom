@@ -41,7 +41,6 @@ jobs:
           path: build/libs/
 
       - name: Upload build libs to ptero
-        if: ${{ github.event.inputs.release }}
         run:
           cd scripts && npm ci && cd ..
           node scripts/upload.mjs
