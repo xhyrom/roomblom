@@ -42,7 +42,9 @@ jobs:
 
       - name: Upload build libs to ptero
         run:
-          cd scripts && npm ci && cd ..
+          cd scripts
+          npm ci
+          cd ..
           node scripts/upload.mjs
         env:
           PANEL_API_TOKEN: ${{ secrets.PANEL_API_TOKEN }}
