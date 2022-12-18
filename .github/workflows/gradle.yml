@@ -41,7 +41,7 @@ jobs:
           path: build/libs/
 
       - name: Upload build libs to ptero
-        run:
+        run: |
           cd scripts
           npm ci
           cd ..
