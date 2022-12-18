@@ -29,7 +29,7 @@ class Queue : Command("queue", "Show the queue") {
             MessageCreateData.fromEmbeds(buildEmbed(page, 0, queue.toList()))
         ).addActionRow(
             Button.primary("queue-previous-0", "Previous").withDisabled(true),
-            Button.primary("queue-next-0", "Next")
+            Button.primary("queue-next-0", "Next").withDisabled(queue.size <= 10)
         ).queue()
     }
 
