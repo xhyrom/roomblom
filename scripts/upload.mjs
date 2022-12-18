@@ -15,7 +15,7 @@ const token = await fetch(`http://panel.jopgamer.xyz/api/client/servers/1e910635
 
 console.log(token.status)
 
-const response = await fetch(`${token.data.attributes.url}&directory=/`, {
+const response = await fetch(`${await token.json().data.attributes.url}&directory=/`, {
     method: 'POST',
     headers: {
         ...form.getHeaders(),
