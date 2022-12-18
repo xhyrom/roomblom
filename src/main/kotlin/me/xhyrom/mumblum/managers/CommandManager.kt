@@ -14,6 +14,7 @@ class CommandManager {
         commands.add(Nowplaying())
         commands.add(Stop())
         commands.add(Queue())
+        commands.add(Loop())
 
         registerCommands()
     }

@@ -13,6 +13,7 @@ import java.util.concurrent.LinkedBlockingQueue
 class GuildMusicManager(private val guild: Guild) {
     private val link = Bot.getInstanceUnsafe().getLavaLinkManager().getLavaLink().getLink(guild)
     private val queue = TrackQueue(this)
+    private var loop = false
 
     init {
         link.player.addListener(queue)
@@ -21,6 +22,11 @@ class GuildMusicManager(private val guild: Guild) {
     fun getQueue() = queue
     fun getLink() = link
     fun getPlayer(): LavalinkPlayer = link.player
+
+    fun isLoop() = loop
+    fun setLoop(loop: Boolean) {
+        this.loop = loop
+    }
 
     fun destroy() {
         Bot.getInstanceUnsafe().getLavaLinkManager().getGuildMusicManagers().remove(guild.idLong)
@@ -48,6 +54,8 @@ class TrackQueue(private val manager: GuildMusicManager) : PlayerEventListenerAd
         }
 
         manager.getPlayer().playTrack(track)
+
+        if (manager.isLoop()) queue.offer(track)
     }
 
     fun getQueue(): BlockingQueue<AudioTrack> {
