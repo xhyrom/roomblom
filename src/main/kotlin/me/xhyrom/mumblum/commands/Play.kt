@@ -47,7 +47,6 @@ class Play : Command(
             tried.toString(),
             object : AudioLoadResultHandler {
                 override fun trackLoaded(track: AudioTrack) {
-                    println(tried)
                     event.hook.editOriginal("Playing ${track.info.title}").queue()
 
                     guildMusicManager.getQueue().add(track)
