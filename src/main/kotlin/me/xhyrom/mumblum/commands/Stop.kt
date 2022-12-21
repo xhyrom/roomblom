@@ -7,7 +7,7 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 class Stop : Command("stop", "Stop the music") {
     override fun execute(event: SlashCommandInteractionEvent) {
         val guild = event.guild ?: return event.reply("You must be in a guild to use this command").setEphemeral(true).queue()
-        val musicManager = Bot.getInstanceUnsafe().getLavaLinkManager().getGuildMusicManager(guild)
+        val musicManager = Bot.getLavaLinkManager().getGuildMusicManager(guild)
 
         musicManager.getLink().destroy()
         musicManager.destroy()

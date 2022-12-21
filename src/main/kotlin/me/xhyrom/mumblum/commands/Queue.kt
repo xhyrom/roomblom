@@ -15,7 +15,7 @@ import java.awt.Color
 class Queue : Command("queue", "Show the queue") {
     override fun execute(event: SlashCommandInteractionEvent) {
         val guild = event.guild ?: return event.reply("You must be in a guild to use this command").setEphemeral(true).queue()
-        val musicManager = Bot.getInstanceUnsafe().getLavaLinkManager().getGuildMusicManager(guild)
+        val musicManager = Bot.getLavaLinkManager().getGuildMusicManager(guild)
         val queue = musicManager.getQueue().getQueue()
 
         if (queue.isEmpty()) {
@@ -38,7 +38,7 @@ class Queue : Command("queue", "Show the queue") {
         val action = event.componentId.split("-")[1]
         var pageId = event.componentId.split("-")[2].toInt()
 
-        val musicManager = Bot.getInstanceUnsafe().getLavaLinkManager().getGuildMusicManager(guild)
+        val musicManager = Bot.getLavaLinkManager().getGuildMusicManager(guild)
         val queue = musicManager.getQueue().getQueue()
 
         when (action) {

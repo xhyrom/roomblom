@@ -5,6 +5,6 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 
 class Ping : Command("ping", "pong 🏓") {
     override fun execute(event: SlashCommandInteractionEvent) {
-        event.reply("Gateway: ${event.jda.gatewayPing}ms | Rest: ${event.jda.restPing.complete()}ms").queue()
+        event.reply("Gateway: ${event.jda.gatewayPing}ms | Rest: ${event.jda.restPing.complete()}ms | Shard: ${event.jda.shardInfo.shardId}").queue()
     }
 }

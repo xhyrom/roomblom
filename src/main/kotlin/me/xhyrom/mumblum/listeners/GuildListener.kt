@@ -8,7 +8,7 @@ class GuildListener : ListenerAdapter() {
     override fun onGuildVoiceUpdate(event: GuildVoiceUpdateEvent) {
         if (event.channelLeft != null) {
             if (!event.channelLeft!!.members.contains(event.guild.selfMember)) {
-                val musicManager = Bot.getInstanceUnsafe().getLavaLinkManager().getGuildMusicManager(event.guild)
+                val musicManager = Bot.getLavaLinkManager().getGuildMusicManager(event.guild)
                 musicManager.getLink().destroy()
                 musicManager.destroy()
             }

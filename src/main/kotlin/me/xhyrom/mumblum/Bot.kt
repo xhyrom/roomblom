@@ -3,61 +3,39 @@ package me.xhyrom.mumblum
 import io.github.cdimascio.dotenv.Dotenv
 import me.xhyrom.mumblum.listeners.GuildListener
 import me.xhyrom.mumblum.listeners.InteractionListener
+import me.xhyrom.mumblum.listeners.ReadyListener
 import me.xhyrom.mumblum.managers.CommandManager
 import me.xhyrom.mumblum.managers.LavalinkManager
-import net.dv8tion.jda.api.JDA
-import net.dv8tion.jda.api.JDABuilder
 import net.dv8tion.jda.api.requests.GatewayIntent
+import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
+import net.dv8tion.jda.api.sharding.ShardManager
 
-class Bot {
-    companion object {
-        private var instance: Bot? = null
-
-        fun getInstance(): Bot? {
-            return instance
-        }
-
-        fun getInstanceUnsafe(): Bot {
-            return instance!!
-        }
-
-        @JvmStatic
-        fun main(args: Array<String>) {
-            Bot()
-        }
-    }
-
+object Bot {
     private var dotenv: Dotenv = Dotenv.load()
-    private var api: JDA? = null
-    private var commandManager: CommandManager? = null
+    private var shardManager: ShardManager? = null
     private var lavaLinkManager: LavalinkManager? = null
 
-    init {
-        instance = this
-
+    @JvmStatic
+    fun main(args: Array<String>) {
         lavaLinkManager = LavalinkManager()
 
-        val builder = JDABuilder.createDefault(dotenv.get("BOT_TOKEN"))
+        shardManager = DefaultShardManagerBuilder.createDefault(dotenv.get("BOT_TOKEN"))
             .enableIntents(GatewayIntent.GUILD_VOICE_STATES)
             .addEventListeners(InteractionListener())
             .addEventListeners(GuildListener())
+            .addEventListeners(ReadyListener())
             .setVoiceDispatchInterceptor(lavaLinkManager!!.getLavaLink().voiceInterceptor)
+            .build()
 
-        api = builder.build()
-
-        commandManager = CommandManager()
+        CommandManager.registerCommands()
     }
 
     fun getDotenv(): Dotenv {
         return dotenv
     }
 
-    fun getApi(): JDA {
-        return api!!
-    }
-
-    fun getCommandManager(): CommandManager {
-        return commandManager!!
+    fun getShardManager(): ShardManager {
+        return shardManager!!
     }
 
     fun getLavaLinkManager(): LavalinkManager {

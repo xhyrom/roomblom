@@ -12,25 +12,25 @@ class LavalinkManager {
     private val lavaLink: JdaLavalink = JdaLavalink(
         "1051248938709168199",
         1,
-    ) { Bot.getInstanceUnsafe().getApi() }
+    ) { shardId -> Bot.getShardManager().getShardById(shardId) }
     private val guilds = mutableMapOf<Long, GuildMusicManager>()
 
     init {
         lavaLink.addNode(
             "mumblum",
-            URI.create(Bot.getInstanceUnsafe().getDotenv().get("LAVALINK_URI")),
-            Bot.getInstanceUnsafe().getDotenv().get("LAVALINK_PASSWORD")
+            URI.create(Bot.getDotenv().get("LAVALINK_URI")),
+            Bot.getDotenv().get("LAVALINK_PASSWORD")
         )
 
         lavaLink.audioPlayerManager.registerSourceManager(SpotifySourceManager(
             null,
-            Bot.getInstanceUnsafe().getDotenv().get("SPOTIFY_CLIENT_ID"),
-            Bot.getInstanceUnsafe().getDotenv().get("SPOTIFY_CLIENT_SECRET"),
+            Bot.getDotenv().get("SPOTIFY_CLIENT_ID"),
+            Bot.getDotenv().get("SPOTIFY_CLIENT_SECRET"),
             "US",
             lavaLink.audioPlayerManager
         ))
         lavaLink.audioPlayerManager.registerSourceManager(DeezerAudioSourceManager(
-            Bot.getInstanceUnsafe().getDotenv().get("DEEZER_MASTER_DECRYPTION_KEY"),
+            Bot.getDotenv().get("DEEZER_MASTER_DECRYPTION_KEY"),
         ))
         DuncteBotSources.registerAll(lavaLink.audioPlayerManager, "en-US")
     }

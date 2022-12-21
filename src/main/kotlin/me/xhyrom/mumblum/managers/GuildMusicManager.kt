@@ -1,6 +1,5 @@
 package me.xhyrom.mumblum.managers
 
-import com.dunctebot.sourcemanagers.DuncteBotSources
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason
 import lavalink.client.player.IPlayer
@@ -12,7 +11,7 @@ import java.util.concurrent.BlockingQueue
 import java.util.concurrent.LinkedBlockingQueue
 
 class GuildMusicManager(private val guild: Guild) {
-    private val link = Bot.getInstanceUnsafe().getLavaLinkManager().getLavaLink().getLink(guild)
+    private val link = Bot.getLavaLinkManager().getLavaLink().getLink(guild)
     private val queue = TrackQueue(this)
     private var loop = false
 
@@ -30,7 +29,7 @@ class GuildMusicManager(private val guild: Guild) {
     }
 
     fun destroy() {
-        Bot.getInstanceUnsafe().getLavaLinkManager().getGuildMusicManagers().remove(guild.idLong)
+        Bot.getLavaLinkManager().getGuildMusicManagers().remove(guild.idLong)
     }
 }
 
