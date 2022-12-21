@@ -57,6 +57,8 @@ class Play : Command(
                 }
 
                 override fun loadFailed(exception: FriendlyException?) {
+                    println(exception?.message)
+                    println(exception?.localizedMessage)
                     event.hook.editOriginal("Failed to load track").queue()
                 }
             }
