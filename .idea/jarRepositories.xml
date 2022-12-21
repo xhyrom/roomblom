@@ -31,5 +31,10 @@
       <option name="name" value="maven3" />
       <option name="url" value="https://m2.duncte123.dev/releases" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="maven4" />
+      <option name="name" value="maven4" />
+      <option name="url" value="https://repo.jopga.me/releases" />
+    </remote-repository>
   </component>
 </project>
