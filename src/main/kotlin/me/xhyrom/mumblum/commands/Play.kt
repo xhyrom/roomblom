@@ -10,6 +10,16 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
 
+private class Source(var provider: String?, val query: String, val remains: MutableList<String>) {
+    override fun toString(): String {
+        return if (provider == null) {
+            query
+        } else {
+            "$provider:$query"
+        }
+    }
+}
+
 class Play : Command(
     "play",
     "Play a song",
@@ -31,10 +41,13 @@ class Play : Command(
 
         guildMusicManager.getLink().connect(voiceChannel)
 
+        val tried = getSource(event.getOption("song")?.asString!!)
+
         guildMusicManager.getLink().restClient.loadItem(
-            getSource(event.getOption("song")?.asString!!),
+            tried.toString(),
             object : AudioLoadResultHandler {
                 override fun trackLoaded(track: AudioTrack) {
+                    println(tried)
                     event.hook.editOriginal("Playing ${track.info.title}").queue()
 
                     guildMusicManager.getQueue().add(track)
@@ -53,23 +66,41 @@ class Play : Command(
                 }
 
                 override fun noMatches() {
+                    if (tried.remains.isNotEmpty()) {
+                        tried.provider = tried.remains.removeFirst()
+
+                        guildMusicManager.getLink().restClient.loadItem(
+                            tried.toString(),
+                            this
+                        )
+                        return
+                    }
+
                     event.hook.editOriginal("No matches found").queue()
                 }
 
                 override fun loadFailed(exception: FriendlyException?) {
-                    println(exception?.message)
-                    println(exception?.localizedMessage)
+                    if (tried.remains.isNotEmpty()) {
+                        tried.provider = tried.remains.removeFirst()
+
+                        guildMusicManager.getLink().restClient.loadItem(
+                            tried.toString(),
+                            this
+                        )
+                        return
+                    }
+
                     event.hook.editOriginal("Failed to load track").queue()
                 }
             }
         )
     }
 
-    private fun getSource(query: String): String {
+    private fun getSource(query: String): Source {
         if (!query.contains("http")) {
-            return "ytsearch:$query"
+            return Source("ytsearch", query, mutableListOf("scsearch", "spsearch", "dzsearch"))
         }
 
-        return query
+        return Source(null, query, mutableListOf("ytsearch", "scsearch", "spsearch", "dzsearch"))
     }
 }
