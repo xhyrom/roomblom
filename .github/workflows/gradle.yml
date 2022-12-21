@@ -9,14 +9,9 @@ name: Java CI with Gradle
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "master" ]
-  workflow_dispatch:
-    inputs:
-      release:
-        type: boolean
-        description: Release build to reposilite
+    branches: [ "main" ]
 
 jobs:
   build:
@@ -45,11 +40,14 @@ jobs:
           name: build-libs
           path: build/libs/
 
-      - name: Upload build libs to reposilite
-        if: ${{ github.event.inputs.release }}
-        uses: gradle/gradle-build-action@7b3886699e7f5156c2650e6861b32ea2356df4d6
-        with:
-          arguments: publish -PmavenUsername=${{ secrets.REPOSILITE_USERNAME }} -PmavenPassword=${{ secrets.REPOSILITE_PASSWORD }}
+      - name: Upload build libs to ptero
+        run: |
+          cd scripts
+          npm ci
+          cd ..
+          node scripts/upload.mjs
+        env:
+          PANEL_API_TOKEN: ${{ secrets.PANEL_API_TOKEN }}
 
       - uses: dev-drprasad/delete-tag-and-release@085c6969f18bad0de1b9f3fe6692a3cd01f64fe5
         with:
