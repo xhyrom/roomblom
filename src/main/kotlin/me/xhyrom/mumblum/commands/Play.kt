@@ -44,8 +44,10 @@ class Play : Command(
 
         val guildMusicManager = Bot.getLavaLinkManager().getGuildMusicManager(voiceChannel.guild)
 
-        guildMusicManager.getLink().connect(voiceChannel).runCatching {
-            return event.hook.editOriginal("Failed to connect to the voice channel").queue()
+        guildMusicManager.getLink().connect(voiceChannel)
+
+        if (!guildMusicManager.getLink().player.isConnected) {
+            return event.hook.editOriginal("Failed to connect to voice channel").queue()
         }
 
         val tried = getSource(event.getOption("song")?.asString!!)
