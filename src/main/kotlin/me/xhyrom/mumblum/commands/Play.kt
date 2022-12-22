@@ -44,7 +44,9 @@ class Play : Command(
 
         val guildMusicManager = Bot.getLavaLinkManager().getGuildMusicManager(voiceChannel.guild)
 
-        guildMusicManager.getLink().connect(voiceChannel)
+        guildMusicManager.getLink().connect(voiceChannel).runCatching {
+            return event.hook.editOriginal("Failed to connect to the voice channel").queue()
+        }
 
         val tried = getSource(event.getOption("song")?.asString!!)
 
@@ -102,9 +104,9 @@ class Play : Command(
 
     private fun getSource(query: String): Source {
         if (!query.contains("http")) {
-            return Source("ytsearch", query, mutableListOf("scsearch", "spsearch", "dzsearch"))
+            return Source("ytsearch", query, mutableListOf("dzsearch", "scsearch", "spsearch"))
         }
 
-        return Source(null, query, mutableListOf("ytsearch", "scsearch", "spsearch", "dzsearch"))
+        return Source(null, query, mutableListOf("ytsearch", "dzsearch", "scsearch", "spsearch"))
     }
 }
