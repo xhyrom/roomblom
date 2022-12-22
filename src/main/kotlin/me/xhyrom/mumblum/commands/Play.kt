@@ -4,6 +4,7 @@ import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
+import lavalink.client.io.Link
 import me.xhyrom.mumblum.Bot
 import me.xhyrom.mumblum.api.structs.Command
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
@@ -45,10 +46,6 @@ class Play : Command(
         val guildMusicManager = Bot.getLavaLinkManager().getGuildMusicManager(voiceChannel.guild)
 
         guildMusicManager.getLink().connect(voiceChannel)
-
-        if (!guildMusicManager.getLink().player.isConnected) {
-            return event.hook.editOriginal("Failed to connect to voice channel").queue()
-        }
 
         val tried = getSource(event.getOption("song")?.asString!!)
 
