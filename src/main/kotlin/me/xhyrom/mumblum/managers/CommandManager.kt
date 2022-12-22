@@ -16,6 +16,7 @@ object CommandManager {
         commands.add(Queue())
         commands.add(Loop())
         commands.add(Skip())
+        commands.add(Volume())
     }
 
     fun getCommand(name: String): Command? {

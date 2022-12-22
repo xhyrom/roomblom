@@ -3,8 +3,21 @@ package me.xhyrom.mumblum.commands
 import me.xhyrom.mumblum.Bot
 import me.xhyrom.mumblum.api.structs.Command
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
+import net.dv8tion.jda.api.interactions.commands.OptionType
+import net.dv8tion.jda.api.interactions.commands.build.OptionData
 
-class Skip : Command("skip", "Skip the current song") {
+class Volume : Command(
+    "volume",
+    "Change the volume of the current song",
+    listOf(
+        OptionData(
+            OptionType.INTEGER,
+            "volume",
+            "The volume to set",
+            true
+        ).setMaxValue(100).setMinValue(1)
+    )
+) {
     override fun execute(event: SlashCommandInteractionEvent) {
         val voiceChannel = event.member?.voiceState?.channel?.asVoiceChannel()
             ?: return event.reply("You must be in a voice channel to use this command").setEphemeral(true).queue()
@@ -15,8 +28,8 @@ class Skip : Command("skip", "Skip the current song") {
         val guildMusicManager = Bot.getLavaLinkManager().getGuildMusicManagerUnsafe(voiceChannel.guild)
             ?: return event.reply("The bot is not connected to a voice channel").setEphemeral(true).queue()
 
-        guildMusicManager.getQueue().nextTrack()
+        guildMusicManager.getPlayer().volume = event.getOption("volume")!!.asInt
 
-        event.reply("Skipped").queue()
+        event.reply("Set the volume to ${event.getOption("volume")!!.asInt}").queue()
     }
 }
