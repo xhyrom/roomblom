@@ -15,7 +15,8 @@ import java.awt.Color
 class Queue : Command("queue", "Show the queue") {
     override fun execute(event: SlashCommandInteractionEvent) {
         val guild = event.guild ?: return event.reply("You must be in a guild to use this command").setEphemeral(true).queue()
-        val musicManager = Bot.getLavaLinkManager().getGuildMusicManager(guild)
+        val musicManager = Bot.getLavaLinkManager().getGuildMusicManagerUnsafe(guild)
+            ?: return event.reply("The bot is not connected to a voice channel").setEphemeral(true).queue()
         val queue = musicManager.getQueue().getQueue()
 
         if (queue.isEmpty()) {

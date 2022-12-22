@@ -39,6 +39,10 @@ class LavalinkManager {
         return guilds[guild.idLong] ?: GuildMusicManager(guild).also { guilds[guild.idLong] = it }
     }
 
+    fun getGuildMusicManagerUnsafe(guild: Guild): GuildMusicManager? {
+        return guilds[guild.idLong]
+    }
+
     fun getGuildMusicManagers(): MutableMap<Long, GuildMusicManager> {
         return guilds
     }

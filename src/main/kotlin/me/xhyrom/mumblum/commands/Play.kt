@@ -37,6 +37,11 @@ class Play : Command(
 
         val voiceChannel = event.member?.voiceState?.channel?.asVoiceChannel()
             ?: return event.hook.editOriginal("You must be in a voice channel to use this command").queue()
+
+        if (event.guild?.selfMember?.voiceState?.channel != null && event.guild?.selfMember?.voiceState?.channel != voiceChannel) {
+            return event.hook.editOriginal("You must be in the same voice channel as the bot to use this command").queue()
+        }
+
         val guildMusicManager = Bot.getLavaLinkManager().getGuildMusicManager(voiceChannel.guild)
 
         guildMusicManager.getLink().connect(voiceChannel)
