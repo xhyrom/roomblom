@@ -11,6 +11,8 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
 import net.dv8tion.jda.api.sharding.ShardManager
 
 object Bot {
+    const val MASCOT = "<:mumblum:1056308754490077294>"
+
     private var dotenv: Dotenv = Dotenv.load()
     private var shardManager: ShardManager? = null
     private var lavaLinkManager: LavalinkManager? = null

@@ -14,13 +14,13 @@ import java.awt.Color
 
 class Queue : Command("queue", "Show the queue") {
     override fun execute(event: SlashCommandInteractionEvent) {
-        val guild = event.guild ?: return event.reply("You must be in a guild to use this command").setEphemeral(true).queue()
+        val guild = event.guild ?: return event.reply("${Bot.MASCOT} You must be in a guild to use this command.").setEphemeral(true).queue()
         val musicManager = Bot.getLavaLinkManager().getGuildMusicManagerUnsafe(guild)
-            ?: return event.reply("The bot is not connected to a voice channel").setEphemeral(true).queue()
+            ?: return event.reply("${Bot.MASCOT} The bot is not connected to a voice channel.").setEphemeral(true).queue()
         val queue = musicManager.getQueue().getQueue()
 
         if (queue.isEmpty()) {
-            event.reply("The queue is empty").queue()
+            event.reply("${Bot.MASCOT} The queue is empty.").queue()
             return
         }
 
@@ -35,7 +35,7 @@ class Queue : Command("queue", "Show the queue") {
     }
 
     override fun onButtonInteraction(event: ButtonInteractionEvent) {
-        val guild = event.guild ?: return event.reply("You must be in a guild to use this command").setEphemeral(true).queue()
+        val guild = event.guild ?: return event.reply("${Bot.MASCOT} You must be in a guild to use this command.").setEphemeral(true).queue()
         val action = event.componentId.split("-")[1]
         var pageId = event.componentId.split("-")[2].toInt()
 

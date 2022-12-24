@@ -36,10 +36,10 @@ class Play : Command(
         event.deferReply().queue()
 
         val voiceChannel = event.member?.voiceState?.channel?.asVoiceChannel()
-            ?: return event.hook.editOriginal("You must be in a voice channel to use this command").queue()
+            ?: return event.hook.editOriginal("${Bot.MASCOT} You must be in a voice channel to use this command.").queue()
 
         if (event.guild?.selfMember?.voiceState?.channel != null && event.guild?.selfMember?.voiceState?.channel != voiceChannel) {
-            return event.hook.editOriginal("You must be in the same voice channel as the bot to use this command").queue()
+            return event.hook.editOriginal("${Bot.MASCOT} You must be in the same voice channel as the bot to use this command.").queue()
         }
 
         val guildMusicManager = Bot.getLavaLinkManager().getGuildMusicManager(voiceChannel.guild)
@@ -52,18 +52,26 @@ class Play : Command(
             tried.toString(),
             object : AudioLoadResultHandler {
                 override fun trackLoaded(track: AudioTrack) {
-                    event.hook.editOriginal("Playing ${track.info.title}").queue()
+                    if (guildMusicManager.getQueue().getQueue().isEmpty()) {
+                        event.hook.editOriginal("${Bot.MASCOT} Playing **${track.info.title}**.").queue()
+                    } else {
+                        event.hook.editOriginal("${Bot.MASCOT} Added **${track.info.title}** to queue.").queue()
+                    }
 
                     guildMusicManager.getQueue().add(track)
                 }
 
                 override fun playlistLoaded(playlist: AudioPlaylist) {
                     if (playlist.isSearchResult) {
-                        event.hook.editOriginal("Playing ${playlist.tracks[0].info.title}").queue()
+                        if (guildMusicManager.getQueue().getQueue().isEmpty()) {
+                            event.hook.editOriginal("${Bot.MASCOT} Playing **${playlist.tracks[0].info.title}**.").queue()
+                        } else {
+                            event.hook.editOriginal("${Bot.MASCOT} Added **${playlist.tracks[0].info.title}** to queue.").queue()
+                        }
 
                         guildMusicManager.getQueue().add(playlist.tracks[0])
                     } else {
-                        event.hook.editOriginal("Added ${playlist.tracks.size} to queue").queue()
+                        event.hook.editOriginal("${Bot.MASCOT} Added **${playlist.tracks.size}** tracks to queue.").queue()
 
                         playlist.tracks.forEach { guildMusicManager.getQueue().add(it) }
                     }
@@ -80,7 +88,7 @@ class Play : Command(
                         return
                     }
 
-                    event.hook.editOriginal("No matches found").queue()
+                    event.hook.editOriginal("${Bot.MASCOT} No matches found.").queue()
                 }
 
                 override fun loadFailed(exception: FriendlyException?) {
@@ -94,7 +102,7 @@ class Play : Command(
                         return
                     }
 
-                    event.hook.editOriginal("Failed to load track").queue()
+                    event.hook.editOriginal("${Bot.MASCOT} Failed to load track(s).").queue()
                 }
             }
         )

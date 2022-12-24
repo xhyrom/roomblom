@@ -6,19 +6,19 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 
 class Stop : Command("stop", "Stop the music") {
     override fun execute(event: SlashCommandInteractionEvent) {
-        val guild = event.guild ?: return event.reply("You must be in a guild to use this command").setEphemeral(true).queue()
+        val guild = event.guild ?: return event.reply("${Bot.MASCOT} You must be in a guild to use this command.").setEphemeral(true).queue()
         val voiceChannel = event.member?.voiceState?.channel?.asVoiceChannel()
-            ?: return event.reply("You must be in a voice channel to use this command").queue()
+            ?: return event.reply("${Bot.MASCOT} You must be in a voice channel to use this command.").queue()
         val musicManager = Bot.getLavaLinkManager().getGuildMusicManagerUnsafe(guild)
-            ?: return event.reply("The bot is not connected to a voice channel").setEphemeral(true).queue()
+            ?: return event.reply("${Bot.MASCOT} The bot is not connected to a voice channel.").setEphemeral(true).queue()
 
         if (event.guild?.selfMember?.voiceState?.channel != null && event.guild?.selfMember?.voiceState?.channel != voiceChannel) {
-            return event.reply("You must be in the same voice channel as the bot to use this command").setEphemeral(true).queue()
+            return event.reply("${Bot.MASCOT} You must be in the same voice channel as the bot to use this command.").setEphemeral(true).queue()
         }
 
         musicManager.getLink().destroy()
         musicManager.destroy()
 
-        event.reply("Stopped the music").queue()
+        event.reply("${Bot.MASCOT} Music has been stopped.").queue()
     }
 }
