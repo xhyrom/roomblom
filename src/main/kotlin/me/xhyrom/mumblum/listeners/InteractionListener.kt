@@ -22,7 +22,7 @@ class InteractionListener : ListenerAdapter() {
     override fun onCommandAutoCompleteInteraction(event: CommandAutoCompleteInteractionEvent) {
         val command = event.name
 
-        event.replyChoiceStrings(CommandManager.getCommand(command)!!.onAutoComplete(event)).queue()
+        event.replyChoices(CommandManager.getCommand(command)!!.onAutoComplete(event)).queue()
     }
 
     override fun onButtonInteraction(event: ButtonInteractionEvent) {

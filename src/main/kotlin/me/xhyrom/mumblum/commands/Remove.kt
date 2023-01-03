@@ -28,7 +28,7 @@ class Remove : Command(
 
         val queue = guildMusicManager.getQueue().getQueue()
 
-        val track = queue.find { it.info.title == song }
+        val track = queue.find { it.info.title.contains(song) }
             ?: return event.reply("${Bot.MASCOT} Song not found.").setEphemeral(true).queue()
 
         queue.remove(track)
@@ -36,7 +36,7 @@ class Remove : Command(
         event.reply("${Bot.MASCOT} Removed $song from queue.").queue()
     }
 
-    override fun onAutoComplete(event: CommandAutoCompleteInteractionEvent): List<String> {
+    override fun onAutoComplete(event: CommandAutoCompleteInteractionEvent): List<net.dv8tion.jda.api.interactions.commands.Command.Choice> {
         val guild = event.guild ?: return emptyList()
 
         val musicManager = Bot.getLavaLinkManager().getGuildMusicManagerUnsafe(guild)
@@ -47,7 +47,9 @@ class Remove : Command(
         val query = event.getOption("song")!!.asString
 
         return if (query.isEmpty())
-                queue.map { "${it.info.title} - ${it.info.author}" }
-            else queue.filter { it.info.title.contains(query, true) }.map { it.info.title }
+                queue.map { net.dv8tion.jda.api.interactions.commands.Command.Choice("${it.info.title} - ${it.info.author}", it.info.title) }
+            else queue
+                    .filter { it.info.title.contains(query, true) }
+                    .map { net.dv8tion.jda.api.interactions.commands.Command.Choice("${it.info.title} - ${it.info.author}", it.info.title) }
     }
 }

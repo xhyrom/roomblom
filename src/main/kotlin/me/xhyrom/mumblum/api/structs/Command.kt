@@ -12,7 +12,7 @@ abstract class Command(
 ) {
     abstract fun execute(event: SlashCommandInteractionEvent)
 
-    open fun onAutoComplete(event: CommandAutoCompleteInteractionEvent): List<String> {
+    open fun onAutoComplete(event: CommandAutoCompleteInteractionEvent): List<net.dv8tion.jda.api.interactions.commands.Command.Choice> {
         return listOf()
     }
 
