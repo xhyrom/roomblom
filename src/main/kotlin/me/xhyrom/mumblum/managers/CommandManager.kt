@@ -19,6 +19,7 @@ object CommandManager {
         commands.add(Volume())
         commands.add(Filter())
         commands.add(Remove())
+        commands.add(Info())
     }
 
     fun getCommand(name: String): Command? {
