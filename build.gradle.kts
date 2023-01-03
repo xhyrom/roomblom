@@ -30,6 +30,8 @@ dependencies {
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.0")
     implementation("com.dunctebot:sourcemanagers:1.8.2")
     implementation("com.github.TopiSenpai.LavaSrc:lavasrc:3.1.7")
+
+    implementation("com.github.top-gg:java-sdk:2.1.2")
 }
 
 tasks.withType<Jar> {

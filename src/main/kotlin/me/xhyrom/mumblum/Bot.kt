@@ -9,12 +9,14 @@ import me.xhyrom.mumblum.managers.LavalinkManager
 import net.dv8tion.jda.api.requests.GatewayIntent
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
 import net.dv8tion.jda.api.sharding.ShardManager
+import org.discordbots.api.client.DiscordBotListAPI
 
 object Bot {
     const val MASCOT = "<:mumblum:1056308754490077294>"
 
     private var dotenv: Dotenv = Dotenv.load()
     private var shardManager: ShardManager? = null
+    private var discordBotListApi: DiscordBotListAPI? = null
     private var lavaLinkManager: LavalinkManager? = null
 
     @JvmStatic
@@ -29,6 +31,11 @@ object Bot {
             .setVoiceDispatchInterceptor(lavaLinkManager!!.getLavaLink().voiceInterceptor)
             .build()
 
+        discordBotListApi = DiscordBotListAPI.Builder()
+            .token(dotenv.get("TOPGG_TOKEN"))
+            .botId(dotenv.get("BOT_CLIENT_ID"))
+            .build()
+
         CommandManager.registerCommands()
     }
 
@@ -38,6 +45,10 @@ object Bot {
 
     fun getShardManager(): ShardManager {
         return shardManager!!
+    }
+
+    fun getDiscordBotListApi(): DiscordBotListAPI {
+        return discordBotListApi!!
     }
 
     fun getLavaLinkManager(): LavalinkManager {
