@@ -33,7 +33,7 @@ class Remove : Command(
 
         queue.remove(track)
 
-        event.reply("${Bot.MASCOT} Removed $song from queue.").queue()
+        event.reply("${Bot.MASCOT} Removed **$song** from queue.").queue()
     }
 
     override fun onAutoComplete(event: CommandAutoCompleteInteractionEvent): List<net.dv8tion.jda.api.interactions.commands.Command.Choice> {
