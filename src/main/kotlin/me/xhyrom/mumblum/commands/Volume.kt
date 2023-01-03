@@ -30,6 +30,6 @@ class Volume : Command(
 
         guildMusicManager.getPlayer().volume = event.getOption("volume")!!.asInt
 
-        event.reply("${Bot.MASCOT} Set the volume to ${event.getOption("volume")!!.asInt}.").queue()
+        event.reply("${Bot.MASCOT} Set the volume to **${event.getOption("volume")!!.asInt}**.").queue()
     }
 }
