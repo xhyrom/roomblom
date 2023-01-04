@@ -7,6 +7,7 @@ import me.xhyrom.mumblum.managers.VoteManager
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
+import net.dv8tion.jda.api.interactions.components.buttons.Button
 
 class Filter : Command(
     "filter",
@@ -49,7 +50,10 @@ class Filter : Command(
 
         VoteManager.hasVote(event.user.id).thenAccept { voted ->
             if (!voted) {
-                event.hook.editOriginal("${Bot.MASCOT} You must vote for the bot to use this command.").queue()
+                event.hook
+                    .editOriginal("${Bot.MASCOT} You must vote for the bot to use this command.")
+                    .setActionRow(Button.link("https://top.gg/bot/1051248938709168199/vote", "Vote"))
+                    .queue()
                 return@thenAccept
             }
 
