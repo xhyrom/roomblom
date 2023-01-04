@@ -32,6 +32,7 @@ dependencies {
     implementation("com.github.TopiSenpai.LavaSrc:lavasrc:3.1.7")
 
     implementation("com.github.top-gg:java-sdk:2.1.2")
+    implementation("redis.clients:jedis:4.3.1")
 }
 
 tasks.withType<Jar> {

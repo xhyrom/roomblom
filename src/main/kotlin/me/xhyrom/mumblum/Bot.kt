@@ -10,6 +10,8 @@ import net.dv8tion.jda.api.requests.GatewayIntent
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
 import net.dv8tion.jda.api.sharding.ShardManager
 import org.discordbots.api.client.DiscordBotListAPI
+import redis.clients.jedis.HostAndPort
+import redis.clients.jedis.JedisPooled
 
 object Bot {
     const val MASCOT = "<:mumblum:1056308754490077294>"
@@ -18,6 +20,7 @@ object Bot {
     private var shardManager: ShardManager? = null
     private var discordBotListApi: DiscordBotListAPI? = null
     private var lavaLinkManager: LavalinkManager? = null
+    private var redis: JedisPooled? = null
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -36,6 +39,8 @@ object Bot {
             .botId(dotenv.get("BOT_CLIENT_ID"))
             .build()
 
+        redis = JedisPooled(dotenv.get("REDIS_HOST"), dotenv.get("REDIS_PORT").toInt(), dotenv.get("REDIS_USERNAME"), dotenv.get("REDIS_PASSWORD"))
+
         CommandManager.registerCommands()
     }
 
@@ -53,5 +58,9 @@ object Bot {
 
     fun getLavaLinkManager(): LavalinkManager {
         return lavaLinkManager!!
+    }
+
+    fun getRedis(): JedisPooled {
+        return redis!!
     }
 }
