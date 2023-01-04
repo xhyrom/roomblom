@@ -41,15 +41,16 @@ class Play : Command(
             return event.reply("${Bot.MASCOT} You must be in the same voice channel as the bot to use this command.").setEphemeral(true).queue()
         }
 
-        event.deferReply().queue()
-
         val guildMusicManager = Bot.getLavaLinkManager().getGuildMusicManager(voiceChannel.guild)
 
         try {
             guildMusicManager.getLink().connect(voiceChannel)
         } catch (e: Exception) {
-            return event.reply("${Bot.MASCOT} An error occurred while connecting to the voice channel.").setEphemeral(true).queue()
+            event.reply("${Bot.MASCOT} An error occurred while connecting to the voice channel.").setEphemeral(true).queue()
+            return
         }
+
+        event.deferReply().queue()
 
         val tried = getSource(event.getOption("song")?.asString!!)
 
