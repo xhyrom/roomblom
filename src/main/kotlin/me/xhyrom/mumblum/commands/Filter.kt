@@ -49,7 +49,8 @@ class Filter : Command(
 
         VoteManager.hasVote(event.user.id).thenAccept { voted ->
             if (!voted) {
-                return@thenAccept event.hook.editOriginal("${Bot.MASCOT} You must vote for the bot to use this command.").queue()
+                event.hook.editOriginal("${Bot.MASCOT} You must vote for the bot to use this command.").queue()
+                return@thenAccept
             }
 
             when (filter) {
