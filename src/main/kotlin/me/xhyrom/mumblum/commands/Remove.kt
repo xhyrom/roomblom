@@ -47,9 +47,10 @@ class Remove : Command(
         val query = event.getOption("song")!!.asString
 
         return if (query.isEmpty())
-                queue.map { net.dv8tion.jda.api.interactions.commands.Command.Choice("${it.info.title} - ${it.info.author}", it.info.title) }
+                queue.map { net.dv8tion.jda.api.interactions.commands.Command.Choice("${it.info.title} - ${it.info.author}".take(100), it.info.title.take(100)) }
             else queue
                     .filter { it.info.title.contains(query, true) }
-                    .map { net.dv8tion.jda.api.interactions.commands.Command.Choice("${it.info.title} - ${it.info.author}", it.info.title) }
+                    .map { net.dv8tion.jda.api.interactions.commands.Command.Choice("${it.info.title} - ${it.info.author}".take(100), it.info.title.take(100)) }
+                    .take(25)
     }
 }

@@ -13,6 +13,10 @@ on:
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+    inputs:
+      release:
+        type: boolean
+        description: Release build to pterodactyl
 
 jobs:
   build:
@@ -42,6 +46,7 @@ jobs:
           path: build/libs/
 
       - name: Upload build libs to ptero
+        if: ${{ github.event.inputs.release == 'true' || github.event.inputs.release }}
         run: |
           cd scripts
           npm ci
