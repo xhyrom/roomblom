@@ -1,7 +1,7 @@
-package me.xhyrom.mumblum.listeners
+package me.xhyrom.roomblom.listeners
 
-import me.xhyrom.mumblum.Bot
-import me.xhyrom.mumblum.managers.CommandManager
+import me.xhyrom.roomblom.Bot
+import me.xhyrom.roomblom.managers.CommandManager
 import net.dv8tion.jda.api.events.session.ReadyEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 import java.util.*

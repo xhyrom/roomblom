@@ -1,7 +1,9 @@
-package me.xhyrom.mumblum.managers
+package me.xhyrom.roomblom.managers
 
-import me.xhyrom.mumblum.api.structs.Command
-import me.xhyrom.mumblum.commands.*
+import me.xhyrom.roomblom.api.structs.Command
+import me.xhyrom.roomblom.commands.*
+import me.xhyrom.roomblom.commands.moderation.Ban
+import me.xhyrom.roomblom.commands.moderation.Kick
 import net.dv8tion.jda.api.JDA
 import net.dv8tion.jda.api.interactions.commands.build.Commands
 
@@ -20,6 +22,10 @@ object CommandManager {
         commands.add(Filter())
         commands.add(Remove())
         commands.add(Info())
+
+        // I will remove them - just for discord :)
+        commands.add(Ban())
+        commands.add(Kick())
     }
 
     fun getCommand(name: String): Command? {
@@ -31,6 +37,7 @@ object CommandManager {
             commands.map {
                 Commands.slash(it.name, it.description)
                     .addOptions(it.options!!)
+                    .setDefaultPermissions(it.defaultMemberPermissions)
             }
         ).queue()
     }

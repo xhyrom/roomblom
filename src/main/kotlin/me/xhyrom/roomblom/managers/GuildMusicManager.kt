@@ -1,11 +1,11 @@
-package me.xhyrom.mumblum.managers
+package me.xhyrom.roomblom.managers
 
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
 import com.sedmelluq.discord.lavaplayer.track.AudioTrackEndReason
 import lavalink.client.player.IPlayer
 import lavalink.client.player.LavalinkPlayer
 import lavalink.client.player.event.PlayerEventListenerAdapter
-import me.xhyrom.mumblum.Bot
+import me.xhyrom.roomblom.Bot
 import net.dv8tion.jda.api.entities.Guild
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.LinkedBlockingQueue

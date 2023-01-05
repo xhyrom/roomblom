@@ -1,11 +1,11 @@
-package me.xhyrom.mumblum.commands
+package me.xhyrom.roomblom.commands
 
 import com.sedmelluq.discord.lavaplayer.player.AudioLoadResultHandler
 import com.sedmelluq.discord.lavaplayer.tools.FriendlyException
 import com.sedmelluq.discord.lavaplayer.track.AudioPlaylist
 import com.sedmelluq.discord.lavaplayer.track.AudioTrack
-import me.xhyrom.mumblum.Bot
-import me.xhyrom.mumblum.api.structs.Command
+import me.xhyrom.roomblom.Bot
+import me.xhyrom.roomblom.api.structs.Command
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
@@ -58,10 +58,13 @@ class Play : Command(
             tried.toString(),
             object : AudioLoadResultHandler {
                 override fun trackLoaded(track: AudioTrack) {
+                    var source = track.sourceManager.sourceName.replaceFirstChar { it.uppercase() }
+                    if (source == "Youtube") source = "Spotify"
+
                     if (guildMusicManager.getQueue().getQueue().isEmpty()) {
-                        event.hook.editOriginal("${Bot.MASCOT} Playing **${track.info.title}**.").queue()
+                        event.hook.editOriginal("${Bot.MASCOT} Playing **${track.info.title}** from **${source}**.").queue()
                     } else {
-                        event.hook.editOriginal("${Bot.MASCOT} Added **${track.info.title}** to queue.").queue()
+                        event.hook.editOriginal("${Bot.MASCOT} Added **${track.info.title}** to queue from **${source}**.").queue()
                     }
 
                     guildMusicManager.getQueue().add(track)
@@ -69,10 +72,13 @@ class Play : Command(
 
                 override fun playlistLoaded(playlist: AudioPlaylist) {
                     if (playlist.isSearchResult) {
+                        var source = playlist.tracks[0].sourceManager.sourceName.replaceFirstChar { it.uppercase() }
+                        if (source == "Youtube") source = "Spotify"
+
                         if (guildMusicManager.getQueue().getQueue().isEmpty()) {
-                            event.hook.editOriginal("${Bot.MASCOT} Playing **${playlist.tracks[0].info.title}**.").queue()
+                            event.hook.editOriginal("${Bot.MASCOT} Playing **${playlist.tracks[0].info.title}** from **${source}**.").queue()
                         } else {
-                            event.hook.editOriginal("${Bot.MASCOT} Added **${playlist.tracks[0].info.title}** to queue.").queue()
+                            event.hook.editOriginal("${Bot.MASCOT} Added **${playlist.tracks[0].info.title}** to queue (from **${source}**).").queue()
                         }
 
                         guildMusicManager.getQueue().add(playlist.tracks[0])
@@ -116,9 +122,9 @@ class Play : Command(
 
     private fun getSource(query: String): Source {
         if (!query.contains("http")) {
-            return Source("ytsearch", query, mutableListOf("dzsearch", "scsearch", "spsearch"))
+            return Source("dzsearch", query, mutableListOf("scsearch", "spsearch"))
         }
 
-        return Source(null, query, mutableListOf("ytsearch", "dzsearch", "scsearch", "spsearch"))
+        return Source(null, query, mutableListOf("dzsearch", "scsearch", "spsearch"))
     }
 }

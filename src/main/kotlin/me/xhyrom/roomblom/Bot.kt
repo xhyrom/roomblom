@@ -1,20 +1,19 @@
-package me.xhyrom.mumblum
+package me.xhyrom.roomblom
 
 import io.github.cdimascio.dotenv.Dotenv
-import me.xhyrom.mumblum.listeners.GuildListener
-import me.xhyrom.mumblum.listeners.InteractionListener
-import me.xhyrom.mumblum.listeners.ReadyListener
-import me.xhyrom.mumblum.managers.CommandManager
-import me.xhyrom.mumblum.managers.LavalinkManager
+import me.xhyrom.roomblom.listeners.GuildListener
+import me.xhyrom.roomblom.listeners.InteractionListener
+import me.xhyrom.roomblom.listeners.ReadyListener
+import me.xhyrom.roomblom.managers.CommandManager
+import me.xhyrom.roomblom.managers.LavalinkManager
 import net.dv8tion.jda.api.requests.GatewayIntent
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder
 import net.dv8tion.jda.api.sharding.ShardManager
 import org.discordbots.api.client.DiscordBotListAPI
-import redis.clients.jedis.HostAndPort
 import redis.clients.jedis.JedisPooled
 
 object Bot {
-    const val MASCOT = "<:mumblum:1056308754490077294>"
+    const val MASCOT = "<:roomblom:1060621623188787340>"
 
     private var dotenv: Dotenv = Dotenv.load()
     private var shardManager: ShardManager? = null

@@ -1,9 +1,9 @@
-package me.xhyrom.mumblum.commands
+package me.xhyrom.roomblom.commands
 
 import lavalink.client.io.filters.*
-import me.xhyrom.mumblum.Bot
-import me.xhyrom.mumblum.api.structs.Command
-import me.xhyrom.mumblum.managers.VoteManager
+import me.xhyrom.roomblom.Bot
+import me.xhyrom.roomblom.api.structs.Command
+import me.xhyrom.roomblom.managers.VoteManager
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData

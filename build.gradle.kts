@@ -6,7 +6,7 @@ plugins {
     application
 }
 
-group = "me.xhyrom.mumblum"
+group = "me.xhyrom.roomblom"
 version = "1.0.0"
 
 repositories {
@@ -37,18 +37,18 @@ dependencies {
 
 tasks.withType<Jar> {
     manifest {
-        attributes("Main-Class" to "me.xhyrom.mumblum.Bot")
+        attributes("Main-Class" to "me.xhyrom.roomblom.Bot")
     }
 }
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     manifest {
-        attributes("Main-Class" to "me.xhyrom.mumblum.Bot")
+        attributes("Main-Class" to "me.xhyrom.roomblom.Bot")
     }
 }
 
 application {
-    mainClass.set("me.xhyrom.mumblum.Bot")
+    mainClass.set("me.xhyrom.roomblom.Bot")
 }
 
 tasks.withType<KotlinCompile> {

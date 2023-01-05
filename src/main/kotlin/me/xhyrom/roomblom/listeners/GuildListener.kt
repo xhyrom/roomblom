@@ -1,6 +1,6 @@
-package me.xhyrom.mumblum.listeners
+package me.xhyrom.roomblom.listeners
 
-import me.xhyrom.mumblum.Bot
+import me.xhyrom.roomblom.Bot
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceUpdateEvent
 import net.dv8tion.jda.api.hooks.ListenerAdapter
 

@@ -1,10 +1,10 @@
-package me.xhyrom.mumblum.managers
+package me.xhyrom.roomblom.managers
 
 import com.dunctebot.sourcemanagers.DuncteBotSources
 import com.github.topisenpai.lavasrc.deezer.DeezerAudioSourceManager
 import com.github.topisenpai.lavasrc.spotify.SpotifySourceManager
 import lavalink.client.io.jda.JdaLavalink
-import me.xhyrom.mumblum.Bot
+import me.xhyrom.roomblom.Bot
 import net.dv8tion.jda.api.entities.Guild
 import java.net.URI
 

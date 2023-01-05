@@ -1,6 +1,6 @@
-package me.xhyrom.mumblum.listeners
+package me.xhyrom.roomblom.listeners
 
-import me.xhyrom.mumblum.managers.CommandManager
+import me.xhyrom.roomblom.managers.CommandManager
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
