@@ -10,7 +10,7 @@ import java.net.URI
 
 class LavalinkManager {
     private val lavaLink: JdaLavalink = JdaLavalink(
-        "1060617881341153412",
+        Bot.getDotenv().get("BOT_CLIENT_ID"),
         1,
     ) { shardId -> Bot.getShardManager().getShardById(shardId) }
     private val guilds = mutableMapOf<Long, GuildMusicManager>()
