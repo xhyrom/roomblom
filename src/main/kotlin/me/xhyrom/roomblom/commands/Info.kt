@@ -9,8 +9,8 @@ class Info : Command("info", "Get information about the bot") {
     override fun execute(event: SlashCommandInteractionEvent) {
         event.reply(
             """
-${Bot.MASCOT} **Mumblum** is a music bot written in Kotlin.
-       **Source code**: <https://github.com/xHyroM/mumblum>
+${Bot.MASCOT} **Roomblom** is a music bot written in Kotlin.
+       **Source code**: <https://github.com/xHyroM/roomblom>
 
             """
         ).addEmbeds(listOf(
