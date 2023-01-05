@@ -1,6 +1,8 @@
 package me.xhyrom.roomblom.listeners
 
+import me.xhyrom.roomblom.Bot
 import me.xhyrom.roomblom.managers.CommandManager
+import me.xhyrom.roomblom.managers.WebhookSender
 import net.dv8tion.jda.api.events.interaction.command.CommandAutoCompleteInteractionEvent
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.events.interaction.component.ButtonInteractionEvent
@@ -11,12 +13,14 @@ class InteractionListener : ListenerAdapter() {
 
     override fun onSlashCommandInteraction(event: SlashCommandInteractionEvent) {
         if (blacklist.contains(event.user.id)) {
-            event.reply("You are blacklisted from using this bot. hehe").setEphemeral(false).queue()
+            event.reply("${Bot.MASCOT} You are blacklisted from using this bot. hehe").setEphemeral(false).queue()
             return
         }
 
         val command = event.name
         CommandManager.getCommand(command)?.execute(event)
+
+        WebhookSender.sendWebhook(Bot.getDotenv().get("WEBHOOK_LOGGER_URL"), "Command: ${event.name} | User: ${event.user.asTag} | Guild: ${event.guild?.name} | Channel: ${event.channel.name}")
     }
 
     override fun onCommandAutoCompleteInteraction(event: CommandAutoCompleteInteractionEvent) {
@@ -27,7 +31,7 @@ class InteractionListener : ListenerAdapter() {
 
     override fun onButtonInteraction(event: ButtonInteractionEvent) {
         if (blacklist.contains(event.user.id)) {
-            event.reply("You are blacklisted from using this bot. hehe").setEphemeral(false).queue()
+            event.reply("${Bot.MASCOT} You are blacklisted from using this bot. hehe").setEphemeral(false).queue()
             return
         }
 
