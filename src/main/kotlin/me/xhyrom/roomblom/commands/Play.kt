@@ -122,9 +122,9 @@ class Play : Command(
 
     private fun getSource(query: String): Source {
         if (!query.contains("http")) {
-            return Source("dzsearch", query, mutableListOf("scsearch", "spsearch"))
+            return Source("dzsearch", query, mutableListOf("ytsearch", "scsearch", "spsearch"))
         }
 
-        return Source(null, query, mutableListOf("dzsearch", "scsearch", "spsearch"))
+        return Source(null, query, mutableListOf("dzsearch", "ytsearch", "scsearch", "spsearch"))
     }
 }
