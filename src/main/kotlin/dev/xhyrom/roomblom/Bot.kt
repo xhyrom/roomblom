@@ -42,8 +42,8 @@ object Bot {
             redis = JedisPooled(
                 dotenv.get("REDIS_HOST"),
                 dotenv.get("REDIS_PORT").toInt(),
-                Bot.dotenv.get("REDIS_USERNAME"),
-                Bot.dotenv.get("REDIS_PASSWORD")
+                dotenv.get("REDIS_USERNAME"),
+                dotenv.get("REDIS_PASSWORD")
             )
 
             lavaLinkManager = LavalinkManager()

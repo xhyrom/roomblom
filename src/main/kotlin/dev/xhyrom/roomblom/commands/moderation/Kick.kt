@@ -7,7 +7,6 @@ import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEve
 import net.dv8tion.jda.api.interactions.commands.DefaultMemberPermissions
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
-import java.util.concurrent.TimeUnit
 
 class Kick : Command(
     "kick",
@@ -38,9 +37,9 @@ class Kick : Command(
             } catch (_: Exception) {
             }
 
-            event.guild!!.kick(user).reason("${event.user.asTag} - $reason").queue()
+            event.guild!!.kick(user).reason("${event.user.name} - $reason").queue()
 
-            event.reply("${Bot.MASCOT} Kicked ${user.asTag} for $reason").queue()
+            event.reply("${Bot.MASCOT} Kicked ${user.name} for $reason").queue()
         }
     }
 }

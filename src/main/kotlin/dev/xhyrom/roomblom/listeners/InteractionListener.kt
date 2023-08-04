@@ -12,7 +12,6 @@ class InteractionListener : ListenerAdapter() {
     private val blacklist = listOf("")
 
     override fun onSlashCommandInteraction(event: SlashCommandInteractionEvent) {
-        System.out.println("Command: ${event.name} | User: ${event.user.asTag} | Guild: ${event.guild?.name} | Channel: ${event.channel.name}")
         if (blacklist.contains(event.user.id)) {
             event.reply("${Bot.MASCOT} You are blacklisted from using this bot. hehe").setEphemeral(false).queue()
             return
@@ -24,7 +23,7 @@ class InteractionListener : ListenerAdapter() {
 
         WebhookSender.sendWebhook(
             Bot.getDotenv().get("WEBHOOK_LOGGER_URL"),
-            "Command: ${event.name} | User: ${event.user.asTag} | Guild: ${event.guild?.name} | Channel: ${event.channel.name}"
+            "Command: ${event.name} | User: ${event.user.name} | Guild: ${event.guild?.name} | Channel: ${event.channel.name}"
         )
     }
 

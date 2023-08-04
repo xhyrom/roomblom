@@ -47,7 +47,7 @@ class Ban : Command(
 
             event.guild!!.ban(user, days, TimeUnit.DAYS).reason(reason).queue()
 
-            event.reply("${Bot.MASCOT} Banned ${user.asTag} for $reason").queue()
+            event.reply("${Bot.MASCOT} Banned ${user.name} for $reason").queue()
         }
     }
 }

@@ -1,7 +1,6 @@
 package dev.xhyrom.roomblom.managers
 
 import dev.schlaubi.lavakord.LavaKord
-import dev.schlaubi.lavakord.jda.lavakord
 import dev.xhyrom.roomblom.Bot
 import net.dv8tion.jda.api.entities.Guild
 
@@ -28,6 +27,6 @@ class LavalinkManager {
     }
 
     fun getLavaLink(): LavaKord {
-        return Bot.getLShardManager().lavakord;
+        return Bot.getLShardManager().lavakord
     }
 }
