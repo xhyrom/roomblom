@@ -1,8 +1,10 @@
 package dev.xhyrom.roomblom.commands
 
+import dev.schlaubi.lavakord.audio.player.applyFilters
 import dev.xhyrom.roomblom.Bot
 import dev.xhyrom.roomblom.api.structs.Command
 import dev.xhyrom.roomblom.managers.VoteManager
+import kotlinx.coroutines.launch
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent
 import net.dv8tion.jda.api.interactions.commands.OptionType
 import net.dv8tion.jda.api.interactions.commands.build.OptionData
@@ -44,7 +46,9 @@ class Volume : Command(
                 return@thenAccept
             }
 
-            guildMusicManager.getPlayer().filters.volume = event.getOption("volume")!!.asInt.toFloat()
+            guildMusicManager.getCoroutineScope().launch {
+                guildMusicManager.getPlayer().filters.volume = event.getOption("volume")!!.asInt.toFloat() / 100f
+            }
 
             event.hook.editOriginal("${Bot.MASCOT} Set the volume to **${event.getOption("volume")!!.asInt}**.").queue()
         }

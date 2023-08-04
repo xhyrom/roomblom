@@ -1,8 +1,7 @@
 package dev.xhyrom.roomblom.commands
 
 import dev.arbjerg.lavalink.protocol.v4.*
-import dev.schlaubi.lavakord.audio.player.applyFilters
-import dev.schlaubi.lavakord.audio.player.resetFilters
+import dev.schlaubi.lavakord.audio.player.*
 import dev.xhyrom.roomblom.Bot
 import dev.xhyrom.roomblom.api.structs.Command
 import dev.xhyrom.roomblom.managers.VoteManager
@@ -70,35 +69,37 @@ class Filter : Command(
             musicManager.getCoroutineScope().launch {
                 when (filter) {
                     "karaoke" -> {
-                        musicManager.getPlayer().applyFilters { Karaoke(15.0F) }
+                        musicManager.getPlayer().filters.karaoke {
+                            level = 15.0f
+                        }
                     }
 
                     "timescale" -> {
-                        musicManager.getPlayer().applyFilters { Timescale() }
+                        musicManager.getPlayer().filters.timescale {  }
                     }
 
                     "tremolo" -> {
-                        musicManager.getPlayer().applyFilters { Tremolo() }
+                        musicManager.getPlayer().filters.tremolo {  }
                     }
 
                     "vibrato" -> {
-                        musicManager.getPlayer().applyFilters { Vibrato() }
+                        musicManager.getPlayer().filters.vibrato { }
                     }
 
                     "rotation" -> {
-                        musicManager.getPlayer().applyFilters { Rotation() }
+                        musicManager.getPlayer().filters.rotation {  }
                     }
 
                     "distortion" -> {
-                        musicManager.getPlayer().applyFilters { Distortion() }
+                        musicManager.getPlayer().filters.distortion {  }
                     }
 
                     "channelmix" -> {
-                        musicManager.getPlayer().applyFilters { ChannelMix() }
+                        musicManager.getPlayer().filters.channelMix {  }
                     }
 
                     "lowpass" -> {
-                        musicManager.getPlayer().applyFilters { LowPass() }
+                        musicManager.getPlayer().filters.lowPass {}
                     }
 
                     "off" -> {
