@@ -47,7 +47,9 @@ class Volume : Command(
             }
 
             guildMusicManager.getCoroutineScope().launch {
-                guildMusicManager.getPlayer().filters.volume = event.getOption("volume")!!.asInt.toFloat() / 100f
+                guildMusicManager.getPlayer().applyFilters {
+                    volume = event.getOption("volume")!!.asInt.toFloat() / 100f
+                }
             }
 
             event.hook.editOriginal("${Bot.MASCOT} Set the volume to **${event.getOption("volume")!!.asInt}**.").queue()

@@ -69,37 +69,51 @@ class Filter : Command(
             musicManager.getCoroutineScope().launch {
                 when (filter) {
                     "karaoke" -> {
-                        musicManager.getPlayer().filters.karaoke {
-                            level = 15.0f
+                        musicManager.getPlayer().applyFilters {
+                            karaoke {}
                         }
                     }
 
                     "timescale" -> {
-                        musicManager.getPlayer().filters.timescale {  }
+                        musicManager.getPlayer().applyFilters {
+                            timescale {}
+                        }
                     }
 
                     "tremolo" -> {
-                        musicManager.getPlayer().filters.tremolo {  }
+                        musicManager.getPlayer().applyFilters {
+                            tremolo {}
+                        }
                     }
 
                     "vibrato" -> {
-                        musicManager.getPlayer().filters.vibrato { }
+                        musicManager.getPlayer().applyFilters {
+                            vibrato {}
+                        }
                     }
 
                     "rotation" -> {
-                        musicManager.getPlayer().filters.rotation {  }
+                        musicManager.getPlayer().applyFilters {
+                            rotation {}
+                        }
                     }
 
                     "distortion" -> {
-                        musicManager.getPlayer().filters.distortion {  }
+                        musicManager.getPlayer().applyFilters {
+                            distortion {}
+                        }
                     }
 
                     "channelmix" -> {
-                        musicManager.getPlayer().filters.channelMix {  }
+                        musicManager.getPlayer().applyFilters {
+                            channelMix {}
+                        }
                     }
 
                     "lowpass" -> {
-                        musicManager.getPlayer().filters.lowPass {}
+                        musicManager.getPlayer().applyFilters {
+                            lowPass {}
+                        }
                     }
 
                     "off" -> {
