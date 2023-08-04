@@ -6,7 +6,7 @@ const file = await readFile('build/libs/roomblom-1.0.0-all.jar');
 const form = new FormData();
 form.append('files', file, 'roomblom.jar');
 
-const token = await fetch(`http://panel.jopgamer.xyz/api/client/servers/1e910635/files/upload`, {
+const token = await fetch(`https://panel.jopgamer.xyz/api/client/servers/1e910635/files/upload`, {
     method: 'GET',
     headers: {
         Authorization: `Bearer ${process.env.PANEL_API_TOKEN}`
