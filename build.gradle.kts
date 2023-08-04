@@ -2,11 +2,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
-    kotlin("jvm") version "1.6.21"
+    kotlin("jvm") version "1.9.0"
     application
 }
 
-group = "me.xhyrom.roomblom"
+group = "dev.xhyrom.roomblom"
 version = "1.0.0"
 
 repositories {
@@ -15,16 +15,13 @@ repositories {
     maven("https://jitpack.io")
     maven("https://m2.duncte123.dev/releases")
     maven("https://repo.jopga.me/releases")
+    maven("https://maven.arbjerg.dev/snapshots")
 }
 
 dependencies {
-    implementation("net.dv8tion:JDA:5.0.0-beta.2")
-    //implementation("com.sedmelluq:lavaplayer:1.3.78")
-    //implementation("com.github.jagrosh:lavaplayer:jmusicbot-SNAPSHOT")
-    //implementation("com.github.freyacodes:Lavalink-Client:cde746afc")
-    //implementation(files("libs/Lavalink-Client.jar"))
-    implementation("com.fredboat.lavalink.client:Lavalink-Client:ea092bd6410752a95e9460affc844015e73a904b-SNAPSHOT")
-    implementation("com.github.walkyst:lavaplayer-fork:1.3.98.4")
+    implementation("net.dv8tion:JDA:5.0.0-beta.12")
+    implementation("dev.schlaubi.lavakord:kord:5.1.6")
+    implementation("dev.schlaubi.lavakord:jda:5.1.6")
 
     implementation("com.github.the-codeboy:Piston4J:0.0.7")
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.0")
@@ -37,18 +34,18 @@ dependencies {
 
 tasks.withType<Jar> {
     manifest {
-        attributes("Main-Class" to "me.xhyrom.roomblom.Bot")
+        attributes("Main-Class" to "dev.xhyrom.roomblom.Bot")
     }
 }
 
 tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar> {
     manifest {
-        attributes("Main-Class" to "me.xhyrom.roomblom.Bot")
+        attributes("Main-Class" to "dev.xhyrom.roomblom.Bot")
     }
 }
 
 application {
-    mainClass.set("me.xhyrom.roomblom.Bot")
+    mainClass.set("dev.xhyrom.roomblom.Bot")
 }
 
 tasks.withType<KotlinCompile> {
