@@ -14,8 +14,10 @@ class Nowplaying : Command("nowplaying", "Show the current song") {
         val track = guildMusicManager?.getPlayer()?.playingTrack
             ?: return event.reply("${Bot.MASCOT} No track is currently playing.").queue()
 
-        val trackPosition = guildMusicManager.getPlayer().position
-        val progress = trackPosition / track.info.length
+        var trackPosition = guildMusicManager.getPlayer().positionDuration.inWholeMilliseconds * 1
+        if (trackPosition < 0) trackPosition = 0
+
+        val progress = trackPosition.toDouble() / track.info.length.toDouble()
         val bar = "▬".repeat((progress * 10).toInt()) + "🔘" + "▬".repeat((10 - progress * 10).toInt())
 
         val embed = EmbedBuilder()

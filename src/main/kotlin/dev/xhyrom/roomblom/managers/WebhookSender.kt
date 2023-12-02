@@ -14,7 +14,6 @@ object WebhookSender {
             .POST(HttpRequest.BodyPublishers.ofString("{\"content\":\"${content}\"}"))
             .build()
 
-        val response = client.send(request, HttpResponse.BodyHandlers.ofString())
-        println(response.body())
+        client.send(request, HttpResponse.BodyHandlers.ofString())
     }
 }

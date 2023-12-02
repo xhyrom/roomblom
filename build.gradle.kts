@@ -20,8 +20,8 @@ repositories {
 
 dependencies {
     implementation("net.dv8tion:JDA:5.0.0-beta.12")
-    implementation("dev.schlaubi.lavakord:kord:5.1.6")
-    implementation("dev.schlaubi.lavakord:jda:5.1.6")
+    implementation("dev.schlaubi.lavakord:kord:5.1.7")
+    implementation("dev.schlaubi.lavakord:jda:5.1.7")
 
     implementation("com.github.the-codeboy:Piston4J:0.0.7")
     implementation("io.github.cdimascio:dotenv-kotlin:6.4.0")
